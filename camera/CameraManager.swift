@@ -63,7 +63,7 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
     open var writeFilesToPhoneLibrary = true
 
     /// Property to determine if manager should follow device orientation. Default value is true.
-    open var shouldRespondToOrientationChanges = true {
+    open var shouldRespondToOrientationChanges = false {
         didSet {
             if shouldRespondToOrientationChanges {
                 _startFollowingDeviceOrientation()
@@ -73,7 +73,7 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
         }
     }
     
-    open var shouldKeepViewAtOrientationChanges = false
+    open var shouldKeepViewAtOrientationChanges = true
 
     /// The Bool property to determine if the camera is ready to use.
     open var cameraIsReady: Bool {
@@ -827,9 +827,9 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
                 self._updateFlasMode(self.flashMode)
                 self._updateCameraQualityMode(self.cameraOutputQuality)
                 validCaptureSession.startRunning()
-                //self._startFollowingDeviceOrientation()
+                self._startFollowingDeviceOrientation()
                 self.cameraIsSetup = true
-                //self._orientationChanged()
+                self._orientationChanged()
 
                 completion()
             }
@@ -944,7 +944,7 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
         }
         captureSession?.commitConfiguration()
         _updateCameraQualityMode(cameraOutputQuality)
-        //_orientationChanged()
+        _orientationChanged()
     }
 
     fileprivate func _setupOutputs() {
