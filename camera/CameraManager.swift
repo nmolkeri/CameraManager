@@ -762,36 +762,36 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
         case .videoOnly, .videoWithMic:
             currentConnection = _getMovieOutput().connection(withMediaType: AVMediaTypeVideo)
         }
-        if let validPreviewLayer = previewLayer {
-            if !shouldKeepViewAtOrientationChanges {
-                if let validPreviewLayerConnection = validPreviewLayer.connection {
-                    if validPreviewLayerConnection.isVideoOrientationSupported {
-                        if _currentVideoOrientation() == .portraitUpsideDown {
-                            validPreviewLayerConnection.videoOrientation = .portrait
-                        } else {
-                            validPreviewLayerConnection.videoOrientation = _currentVideoOrientation()
-                        }
-                    }
-                }
-            }
-            if let validOutputLayerConnection = currentConnection {
-                if validOutputLayerConnection.isVideoOrientationSupported {
-                    if _currentVideoOrientation() == .portraitUpsideDown {
-                        validOutputLayerConnection.videoOrientation = .portrait
-                    } else {
-                        validOutputLayerConnection.videoOrientation = _currentVideoOrientation()
-                    }
-                    
-                }
-            }
-            if !shouldKeepViewAtOrientationChanges {
-                DispatchQueue.main.async(execute: { () -> Void in
-                    if let validEmbeddingView = self.embeddingView {
-                        validPreviewLayer.frame = validEmbeddingView.bounds
-                    }
-                })
-            }
-        }
+//        if let validPreviewLayer = previewLayer {
+//            if !shouldKeepViewAtOrientationChanges {
+//                if let validPreviewLayerConnection = validPreviewLayer.connection {
+//                    if validPreviewLayerConnection.isVideoOrientationSupported {
+//                        if _currentVideoOrientation() == .portraitUpsideDown {
+//                            validPreviewLayerConnection.videoOrientation = .portrait
+//                        } else {
+//                            validPreviewLayerConnection.videoOrientation = _currentVideoOrientation()
+//                        }
+//                    }
+//                }
+//            }
+//            if let validOutputLayerConnection = currentConnection {
+//                if validOutputLayerConnection.isVideoOrientationSupported {
+//                    if _currentVideoOrientation() == .portraitUpsideDown {
+//                        validOutputLayerConnection.videoOrientation = .portrait
+//                    } else {
+//                        validOutputLayerConnection.videoOrientation = _currentVideoOrientation()
+//                    }
+//                    
+//                }
+//            }
+//            if !shouldKeepViewAtOrientationChanges {
+//                DispatchQueue.main.async(execute: { () -> Void in
+//                    if let validEmbeddingView = self.embeddingView {
+//                        validPreviewLayer.frame = validEmbeddingView.bounds
+//                    }
+//                })
+//            }
+//        }
     }
 
     fileprivate func _currentVideoOrientation() -> AVCaptureVideoOrientation {
