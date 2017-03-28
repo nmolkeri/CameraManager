@@ -762,36 +762,36 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
         case .videoOnly, .videoWithMic:
             currentConnection = _getMovieOutput().connection(withMediaType: AVMediaTypeVideo)
         }
-//        if let validPreviewLayer = previewLayer {
-//            if !shouldKeepViewAtOrientationChanges {
-//                if let validPreviewLayerConnection = validPreviewLayer.connection {
-//                    if validPreviewLayerConnection.isVideoOrientationSupported {
-//                        if _currentVideoOrientation() == .portraitUpsideDown {
-//                            validPreviewLayerConnection.videoOrientation = .portrait
-//                        } else {
-//                            validPreviewLayerConnection.videoOrientation = _currentVideoOrientation()
-//                        }
-//                    }
-//                }
-//            }
-//            if let validOutputLayerConnection = currentConnection {
-//                if validOutputLayerConnection.isVideoOrientationSupported {
-//                    if _currentVideoOrientation() == .portraitUpsideDown {
-//                        validOutputLayerConnection.videoOrientation = .portrait
-//                    } else {
-//                        validOutputLayerConnection.videoOrientation = _currentVideoOrientation()
-//                    }
-//                    
-//                }
-//            }
-//            if !shouldKeepViewAtOrientationChanges {
-//                DispatchQueue.main.async(execute: { () -> Void in
-//                    if let validEmbeddingView = self.embeddingView {
-//                        validPreviewLayer.frame = validEmbeddingView.bounds
-//                    }
-//                })
-//            }
-//        }
+        if let validPreviewLayer = previewLayer {
+            if !shouldKeepViewAtOrientationChanges {
+                if let validPreviewLayerConnection = validPreviewLayer.connection {
+                    if validPreviewLayerConnection.isVideoOrientationSupported {
+                        if _currentVideoOrientation() == .portraitUpsideDown {
+                            validPreviewLayerConnection.videoOrientation = .portrait
+                        } else {
+                            validPreviewLayerConnection.videoOrientation = _currentVideoOrientation()
+                        }
+                    }
+                }
+            }
+            if let validOutputLayerConnection = currentConnection {
+                if validOutputLayerConnection.isVideoOrientationSupported {
+                    if _currentVideoOrientation() == .portraitUpsideDown {
+                        validOutputLayerConnection.videoOrientation = .portrait
+                    } else {
+                        validOutputLayerConnection.videoOrientation = _currentVideoOrientation()
+                    }
+                    
+                }
+            }
+            if !shouldKeepViewAtOrientationChanges {
+                DispatchQueue.main.async(execute: { () -> Void in
+                    if let validEmbeddingView = self.embeddingView {
+                        validPreviewLayer.frame = validEmbeddingView.bounds
+                    }
+                })
+            }
+        }
     }
 
     fileprivate func _currentVideoOrientation() -> AVCaptureVideoOrientation {
@@ -827,9 +827,9 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
                 self._updateFlasMode(self.flashMode)
                 self._updateCameraQualityMode(self.cameraOutputQuality)
                 validCaptureSession.startRunning()
-                self._startFollowingDeviceOrientation()
+                //self._startFollowingDeviceOrientation()
                 self.cameraIsSetup = true
-                self._orientationChanged()
+                //self._orientationChanged()
 
                 completion()
             }
@@ -944,7 +944,7 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
         }
         captureSession?.commitConfiguration()
         _updateCameraQualityMode(cameraOutputQuality)
-        _orientationChanged()
+        //_orientationChanged()
     }
 
     fileprivate func _setupOutputs() {
