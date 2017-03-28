@@ -766,13 +766,22 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
             if !shouldKeepViewAtOrientationChanges {
                 if let validPreviewLayerConnection = validPreviewLayer.connection {
                     if validPreviewLayerConnection.isVideoOrientationSupported {
-                        validPreviewLayerConnection.videoOrientation = _currentVideoOrientation()
+                        if _currentVideoOrientation() == .portraitUpsideDown {
+                            validPreviewLayerConnection.videoOrientation = .portrait
+                        } else {
+                            validPreviewLayerConnection.videoOrientation = _currentVideoOrientation()
+                        }
                     }
                 }
             }
             if let validOutputLayerConnection = currentConnection {
                 if validOutputLayerConnection.isVideoOrientationSupported {
-                    validOutputLayerConnection.videoOrientation = _currentVideoOrientation()
+                    if _currentVideoOrientation() == .portraitUpsideDown {
+                        validOutputLayerConnection.videoOrientation = .portrait
+                    } else {
+                        validOutputLayerConnection.videoOrientation = _currentVideoOrientation()
+                    }
+                    
                 }
             }
             if !shouldKeepViewAtOrientationChanges {
