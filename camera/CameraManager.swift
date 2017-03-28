@@ -791,6 +791,8 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
             return .landscapeRight
         case .landscapeRight:
             return .landscapeLeft
+        case .portraitUpsideDown:
+            return .portraitUpsideDown
         default:
             return .portrait
         }
