@@ -42,6 +42,9 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
     /// Capture session to customize camera settings.
     open var captureSession: AVCaptureSession?
     
+    /// Variable to get the present video orientation. 
+    open var currentOrientation: AVCaptureVideoOrientation = .portrait
+    
     /// Property to determine if the manager should show the error for the user. If you want to show the errors yourself set this to false. If you want to add custom error UI set showErrorBlock property. Default value is false.
     open var showErrorsToUsers = false
     
@@ -825,13 +828,24 @@ open class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate, UIGest
     fileprivate func _currentVideoOrientation() -> AVCaptureVideoOrientation {
         switch UIDevice.current.orientation {
         case .landscapeLeft:
+            currentOrientation = .landscapeRight
             return .landscapeRight
         case .landscapeRight:
+            currentOrientation = .landscapeLeft
             return .landscapeLeft
+        case .faceUp:
+            return currentOrientation
+        case .faceDown:
+            return currentOrientation
+        case .portraitUpsideDown:
+            currentOrientation = .portraitUpsideDown
+            return .portraitUpsideDown
         default:
+            currentOrientation = .portrait
             return .portrait
         }
     }
+
     
     fileprivate func _canLoadCamera() -> Bool {
         let currentCameraState = _checkIfCameraIsAvailable()
